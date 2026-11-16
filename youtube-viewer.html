@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>マイ YouTube プレイヤーサイト</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .player-container {
+      width: 100%;
+      max-width: 800px;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      aspect-ratio: 16 / 9;
+      margin-bottom: 20px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .input-area {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #ff0000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #cc0000;
+    }
+
+    .playlist {
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .playlist h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .video-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 15px;
+    }
+
+    .video-card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .video-card:hover {
+      transform: translateY(-3px);
+      background-color: #fff5f5;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎬 My YouTube Viewer</h1>
+    <p>見たいYouTubeのURLを貼るか、下のリストから選んで再生できます</p>
+  </header>
+
+  <div class="player-container">
+    <iframe 
+      id="youtube-player"
+      src="https://www.youtube.com/embed/jfKfPfyJRdk" 
+      title="YouTube video player" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div class="input-area">
+    <input type="text" id="video-url" placeholder="YouTubeのURLを貼り付け（例: https://www.youtube.com/watch?v=...）">
+    <button onclick="loadVideoFromUrl()">再生する</button>
+  </div>
+
+  <div class="playlist">
+    <h2>📌 おすすめ動画リスト</h2>
+    <div class="video-list">
+      <div class="video-card" onclick="changeVideo('jfKfPfyJRdk')">
+        <strong>🎵 作業用BGM (Lofi Girl)</strong>
+        <p style="font-size: 13px; color: #666;">クリックして再生</p>
+      </div>
+      <div class="video-card" onclick="changeVideo('LXb3EKWsInQ')">
+        <strong>🌿 4K 自然映像 (コスタリカ)</strong>
+        <p style="font-size: 13px; color: #666;">クリックして再生</p>
+      </div>
+      <div class="video-card" onclick="changeVideo('aqz-KE-bpKQ')">
+        <strong>🐰 Big Buck Bunny (4K 60fps)</strong>
+        <p style="font-size: 13px; color: #666;">クリックして再生</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function changeVideo(videoId) {
+      const player = document.getElementById('youtube-player');
+      player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    }
+
+    function loadVideoFromUrl() {
+      const urlInput = document.getElementById('video-url').value;
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = urlInput.match(regExp);
+
+      if (match && match[2].length === 11) {
+        changeVideo(match[2]);
+      } else {
+        alert('正しいYouTubeのURLを入力してください！');
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090b10">
+<title>NOVA — External Links</title>
+<style>
+:root{color-scheme:dark;--bg:#090b10;--panel:#11151e;--panel2:#171d29;--line:#252d3b;--text:#f2f5fb;--muted:#8d98aa;--accent:#75cfff;--accent2:#9b8cff}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -15%,#1a2b43 0,transparent 48%),var(--bg);color:var(--text);font-family:Inter,"Noto Sans JP",system-ui,-apple-system,sans-serif}
+.wrap{width:min(100% - 36px,1000px);margin:0 auto;padding:54px 0 42px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:90px}
+.brand{font-size:15px;font-weight:800;letter-spacing:.25em;color:#dfeeff}
+.status{font-size:11px;color:var(--muted);letter-spacing:.12em;border:1px solid var(--line);border-radius:30px;padding:8px 12px}
+.hero{text-align:center;margin-bottom:54px}
+.kicker{font-size:11px;letter-spacing:.34em;color:var(--accent);font-weight:700}
+h1{font-size:clamp(42px,8vw,68px);letter-spacing:.16em;margin:13px 0 10px;font-weight:800}
+.sub{color:var(--muted);font-size:13px;letter-spacing:.08em}
+.search{max-width:650px;margin:30px auto 0;display:flex;align-items:center;background:#121722;border:1px solid #2a3445;border-radius:16px;padding:7px 9px 7px 18px;box-shadow:0 16px 50px #0005;transition:.2s}
+.search:focus-within{border-color:#75cfff88;box-shadow:0 0 0 4px #75cfff12,0 16px 50px #0005}
+.search svg{width:19px;height:19px;color:#91a1b6;flex:none}
+.search input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--text);font-size:14px;padding:12px}
+.search button{background:#d9f2ff;color:#07111b;border:0;border-radius:11px;padding:11px 17px;font-weight:800;cursor:pointer}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.section-title{font-size:13px;letter-spacing:.18em;font-weight:800}
+.section-title span{color:var(--muted);font-weight:500;letter-spacing:0;margin-left:9px}
+.add{border:1px solid #344156;background:#151c28;color:#dcecff;border-radius:10px;padding:9px 13px;font-size:12px;font-weight:700;cursor:pointer}
+.add:hover{border-color:var(--accent);color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:13px}
+.tile{position:relative;min-height:125px;border:1px solid var(--line);background:linear-gradient(145deg,#151b27,#10141c);border-radius:16px;padding:18px 14px 14px;text-decoration:none;color:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;transition:.2s;overflow:hidden}
+.tile:hover{transform:translateY(-3px);border-color:#75cfff77;background:linear-gradient(145deg,#1a2636,#111722)}
+.favicon{width:38px;height:38px;border-radius:12px;background:#202b3a;display:grid;place-items:center;color:var(--accent);font-size:17px;font-weight:800;overflow:hidden}
+.favicon img{width:22px;height:22px;object-fit:contain}
+.tile-name{font-size:12px;font-weight:700;text-align:center;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tile-url{font-size:10px;color:var(--muted);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tile-actions{position:absolute;top:7px;right:7px;display:flex;gap:4px;opacity:0;transition:.2s}
+.tile:hover .tile-actions,.tile:focus-within .tile-actions{opacity:1}
+.tile-actions button{width:25px;height:25px;border:1px solid #3a4557;background:#0b1019;color:#c8d3e2;border-radius:7px;cursor:pointer}
+.empty{grid-column:1/-1;text-align:center;border:1px dashed #303b4d;border-radius:16px;padding:35px 15px;color:var(--muted);font-size:13px;line-height:2}
+.note{margin-top:54px;border-top:1px solid var(--line);padding-top:18px;color:#657184;font-size:11px;line-height:1.8;text-align:center}
+footer{text-align:center;color:#536073;font-size:10px;letter-spacing:.2em;margin-top:30px}
+dialog{width:min(420px,calc(100% - 30px));border:1px solid #344156;border-radius:18px;background:#111722;color:var(--text);padding:24px;box-shadow:0 24px 80px #000b}
+dialog::backdrop{background:#02050acc;backdrop-filter:blur(5px)}
+dialog h2{font-size:17px;margin:0 0 20px}
+label{display:block;font-size:11px;color:var(--muted);margin:13px 0 7px}
+.form-input{width:100%;background:#090e16;border:1px solid #2b3545;border-radius:10px;padding:12px;color:var(--text);outline:none}
+.form-input:focus{border-color:var(--accent)}
+.dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
+.dialog-actions button{border-radius:9px;padding:10px 15px;cursor:pointer;font-weight:700}
+.cancel{background:#202938;color:#d5deeb;border:1px solid #344156}
+.save{background:#d9f2ff;color:#07111b;border:0}
+@media(max-width:600px){.wrap{padding-top:27px}.top{margin-bottom:65px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.tile{min-height:112px;padding:14px 7px}.tile-actions{opacity:1}.tile-url{display:none}.search{margin-top:25px}.note{margin-top:40px}}
+
+/* NOVA responsive layout: Chromebook / tablet / phone */
+:root{--content-max:1180px}
+.wrap{width:min(100% - 48px,var(--content-max));padding:34px 0 48px}
+.top{margin-bottom:clamp(42px,7vh,78px)}
+.hero{margin-bottom:48px}
+.section{max-width:1120px;margin-inline:auto}
+.grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:14px}
+.tile{min-height:132px}
+.search{max-width:760px}
+.search input{font-size:15px}
+.add,.search button,.dialog-actions button{min-height:42px}
+.tile-actions{opacity:1}
+.tile:focus-visible,.add:focus-visible,.search button:focus-visible,
+.search input:focus-visible,.tile-actions button:focus-visible{
+ outline:2px solid var(--accent);outline-offset:3px
+}
+@media(min-width:900px){
+ .wrap{padding-top:42px}
+ .top{margin-bottom:76px}
+ .hero{margin-bottom:64px}
+ .grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
+ .tile{min-height:148px}
+ .tile-actions{opacity:0}
+ .tile:hover .tile-actions,.tile:focus-within .tile-actions{opacity:1}
+}
+@media(min-width:1200px){
+ .wrap{width:min(100% - 72px,1240px)}
+ .grid{grid-template-columns:repeat(6,minmax(0,1fr))}
+}
+@media(max-width:800px){
+ .wrap{width:calc(100% - 32px);padding-top:28px}
+ .top{margin-bottom:55px}
+ .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+ .tile{min-height:120px}
+}
+@media(max-width:600px){
+ .wrap{width:calc(100% - 24px);padding-top:22px}
+ .top{margin-bottom:45px}
+ .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+ .tile{min-height:112px;padding:14px 7px}
+ .tile-url{display:none}
+ .tile-actions{opacity:1}
+ .search{margin-top:24px}
+ .search input{font-size:14px}
+ .note{margin-top:40px}
+}
+@media(max-width:360px){
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .status{display:none}
+ .search{padding-left:12px}
+ .search button{padding:10px 12px}
+}
+
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="top">
+    <div class="brand">N O V A</div>
+    <div class="status">NOVA • PERSONAL START</div>
+  </header>
+  <section class="hero">
+    <div class="kicker">YOUR SPACE. YOUR LINKS.</div>
+    <h1>NOVA</h1>
+    <div class="sub">お気に入りを、ひとつの場所に。</div>
+    <form class="search" id="searchForm">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+      <input id="searchInput" type="search" placeholder="Googleで検索..." autocomplete="off" aria-label="Googleで検索">
+      <button type="submit">検索</button>
+    </form>
+  </section>
+  <section>
+    <div class="section-head">
+      <div class="section-title">FAVORITES <span id="count">0 LINKS</span></div>
+      <button class="add" id="addBtn">＋ リンクを追加</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+  <div class="note">Chromebook・PC・スマートフォンに対応。 / キーで検索欄に移動できます。<br>NOVA自体は閲覧履歴を保存しません。<br>Chrome側の履歴も残したくない場合は、先にシークレットタブでNOVAを開いてください。</div>
+  <footer>NOVA / NOVA • PERSONAL START</footer>
+</main>
+<dialog id="editor">
+  <h2 id="dialogTitle">リンクを追加</h2>
+  <form id="linkForm">
+    <label for="name">サイト名</label>
+    <input class="form-input" id="name" maxlength="32" placeholder="例：YouTube" required>
+    <label for="url">URL</label>
+    <input class="form-input" id="url" type="text" placeholder="https://www.youtube.com" required>
+    <div class="dialog-actions">
+      <button type="button" class="cancel" id="cancelBtn">キャンセル</button>
+      <button type="submit" class="save">保存する</button>
+    </div>
+  </form>
+</dialog>
+<script>
+const KEY='nova_favorites_v1';
+const defaults=[
+  {name:'Google',url:'https://www.google.com'},
+  {name:'YouTube',url:'https://www.youtube.com'},
+  {name:'TikTok',url:'https://www.tiktok.com'},
+  {name:'X',url:'https://x.com'},
+  {name:'Discord',url:'https://discord.com/app'}
+];
+let links;
+try { links=JSON.parse(localStorage.getItem(KEY)); } catch(e) { links=null; }
+if(!Array.isArray(links)){ links=defaults; save(); }
+function save(){localStorage.setItem(KEY,JSON.stringify(links));}
+const grid=document.getElementById('grid'), count=document.getElementById('count');
+const editor=document.getElementById('editor'), form=document.getElementById('linkForm');
+let editing=-1;
+function host(url){try{return new URL(url).hostname.replace(/^www\./,'')}catch{return url}}
+function render(){
+  grid.innerHTML='';
+  count.textContent=`${links.length} LINKS`;
+  if(!links.length){grid.innerHTML='<div class="empty">お気に入りはまだありません。<br>「＋ リンクを追加」から登録できます。</div>';return;}
+  links.forEach((item,i)=>{
+    const a=document.createElement('a');a.className='tile';a.href=item.url;a.target='_blank';a.rel='noopener noreferrer';
+    const icon=document.createElement('div');icon.className='favicon';
+    const img=document.createElement('img');img.alt='';img.loading='lazy';
+    img.src='https://www.google.com/s2/favicons?domain='+encodeURIComponent(host(item.url))+'&sz=64';
+    img.onerror=()=>{icon.textContent=(item.name||'?').slice(0,1).toUpperCase();};icon.appendChild(img);
+    const name=document.createElement('div');name.className='tile-name';name.textContent=item.name;
+    const url=document.createElement('div');url.className='tile-url';url.textContent=host(item.url);
+    const actions=document.createElement('div');actions.className='tile-actions';
+    const edit=document.createElement('button');edit.type='button';edit.textContent='✎';edit.title='編集';edit.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();openEditor(i)});
+    const del=document.createElement('button');del.type='button';del.textContent='×';del.title='削除';del.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();if(confirm('「'+item.name+'」を削除しますか？')){links.splice(i,1);save();render()}});
+    actions.append(edit,del);a.append(icon,name,url,actions);grid.appendChild(a);
+  });
+}
+function openEditor(index=-1){
+  editing=index;form.reset();
+  document.getElementById('dialogTitle').textContent=index<0?'リンクを追加':'リンクを編集';
+  if(index>=0){document.getElementById('name').value=links[index].name;document.getElementById('url').value=links[index].url;}
+  editor.showModal();document.getElementById('name').focus();
+}
+document.getElementById('addBtn').addEventListener('click',()=>openEditor());
+document.getElementById('cancelBtn').addEventListener('click',()=>editor.close());
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=document.getElementById('name').value.trim();
+  let raw=document.getElementById('url').value.trim();
+  if(!/^https?:\/\//i.test(raw))raw='https://'+raw;
+  let parsed;try{parsed=new URL(raw)}catch{alert('URLを確認してください');return}
+  if(!['http:','https:'].includes(parsed.protocol)){alert('http または https のURLを入力してください');return}
+  const item={name,url:parsed.href};
+  if(editing<0)links.push(item);else links[editing]=item;
+  save();render();editor.close();
+});
+document.getElementById('searchForm').addEventListener('submit',e=>{
+  e.preventDefault();const q=document.getElementById('searchInput').value.trim();
+  if(q)window.open('https://www.google.com/search?q='+encodeURIComponent(q),'_blank','noopener');
+});
+render();
+document.addEventListener('keydown',e=>{
+  if(e.key==='/' && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName) && !editor.open){
+    e.preventDefault();document.getElementById('searchInput').focus();
+  }
+  if(e.key==='Escape' && editor.open) editor.close();
+});
+</script>
+</body>
+</html>
